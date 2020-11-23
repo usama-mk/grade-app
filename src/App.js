@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import uuid from 'node-uuid'
-import LocalStorageMixin from 'react-localstorage'
 import '../src/styles/styles.css'
 var createReactClass = require('create-react-class');
 
@@ -31,28 +30,40 @@ const List = createReactClass({
       const failing = this.isFailing(item.grade)
 
       return (
-        <li key={item.id} className={classNames('form-inline', failing)}>
+      
+          <li key={item.id} className={classNames('form-inline','flex', failing)}>
+         <div className="col">
+         <label>Delete</label> <br/>
           <a id={item.id} onClick={this.props.onDeleteGrade}  className="form-control remove" title="Delete">
             <span className="glyphicon glyphicon-remove"></span>
             <span className="sr-only">Remove</span>
           </a>
-          <label><span className="sr-only">Name</span>
-          <input
+         </div>
+         <div className="col">
+         <label><span className="">Course Name</span>
+         </label>  <br/>
+         <input
             name="name"
             className="form-control"
             onBlur={this.onBlur.bind(this, i)}
             defaultValue={item.name}
-            type="text" pattern=".{1,}" title="1 characters minimum" required /></label>
+            type="text" pattern=".{1,}" title="1 characters minimum" required />
+         </div>
+         
 
-          <label><span className="sr-only">Grade</span>
+          <div className="col">
+          <label><span className="">Grade</span>
+          </label> <br/>
           <input
             name="grade"
             className="form-control"
             onBlur={this.onBlur.bind(this, i)}
             defaultValue={item.grade}
-            type="number" min="0" max="100" step="1" required /></label>
+            type="number" min="0" max="100" step="1" required />
+          </div>
             <span style={{fontWeight:"bold"}}>Click component to edit</span>
         </li> 
+       
         
       )
     }
@@ -66,7 +77,7 @@ const List = createReactClass({
 
 
 export var App = createReactClass({
-  mixins: [LocalStorageMixin],
+   
   displayName: 'Gradebook App',
 
   getInitialState() {
@@ -102,7 +113,7 @@ export var App = createReactClass({
 
   onBlur(i, field, value) {
 
-    // deep clone array
+    // clone array
     const newItems = JSON.parse(JSON.stringify(this.state.items))
 
     // this is weak sauce. optimize later
@@ -116,7 +127,7 @@ export var App = createReactClass({
   },
 
   render() {
-    // console.log('render, state is:', this.state.items)
+     
 
     return (
       <div>
@@ -124,12 +135,12 @@ export var App = createReactClass({
           <div className="row">
             <div className="col-sm-4">
               <label><span className="sr-only">Name</span>
-              <input name="name" ref="name" placeholder="Enter a name" className="form-control" type="text" pattern=".{1,}" required title="1 characters minimum" /></label>
+              <input name="name" ref="name" placeholder="Enter Course Name" className="form-control" type="text" pattern=".{1,}" required title="1 characters minimum" /></label>
             </div>
             <div className="col-sm-8">
               <label><span className="sr-only">Grade</span>
               <div className="input-group">
-              <input name="grade" ref="grade" placeholder="Enter a grade" className="form-control" type="number" min="0" max="100" step="1" required /><span className="input-group-addon">%</span>
+              <input name="grade" ref="grade" placeholder="Enter grade" className="form-control" type="number" min="0" max="100" step="1" required />
               </div>
               </label>
 
@@ -170,7 +181,7 @@ const Footer = createReactClass({
     return (
       <footer className="text-center">
         <div className="row">
-          <div className="col-sm-4"><h4>Minimun</h4>{stats.min}</div>
+          <div className="col-sm-4"><h4>Minimum</h4>{stats.min}</div>
           <div className="col-sm-4"><h4>Average</h4>{stats.avg}</div>
           <div className="col-sm-4"><h4>Maximum</h4>{stats.max}</div>
         </div>

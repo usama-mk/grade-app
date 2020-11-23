@@ -16,6 +16,11 @@ body {
     transition: opacity .1s ease-in ; 
     opacity: 1;
 }
+.flex{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
 
 .myComponent ul,
 .myComponent footer {
